@@ -1,6 +1,8 @@
+import {mapService} from './service/map-service.js'
 
 window.onInit = onInit
 window.initMap = initMap
+window.onAddPlace = onAddPlace
 
 function onInit() {
     initMap()
@@ -30,32 +32,34 @@ function initMap() {
 }
 
 function renderPlaces() {
-    let places = getPlaces()
+    let places = mapService.getPlaces()
   
-    let elTable = document.querySelector('.table')
+    let elTable = document.querySelector('.location-list')
   
     let strHTML = places.map(place => `
-      <div class="place border">
+    <div class="place border">
+    <button class="btn border" onclick="onDelete('${place.id}')">X</button>
       <h3 onclick="onUpdateMapInitParams('${place.lat}', '${place.lng}', '${place.zoom}')">${place.name}</h3>
-      <button class="btn border" onclick="onDelete('${place.id}')">X</button>
+      <p> '${place.lat}' , '${place.lng}' </p>
       </div><br>
-      `).join('')
+      `)
   
-    elTable.innerHTML = strHTML
+    elTable.innerHTML = strHTML.join('')
   
 }
 
 function onRenderModal(lat, lng, zoom) {
+    document.querySelector('.add-location').innerHTML = `
+    <button class="btn" 
+    onclick="onAddPlace(('[name=place-name]').value,
+    '${lat}', '${lng}', '${zoom}')">Save</button>
+    `
     const elModal = document.querySelector('.modal')
     elModal.style.display = 'block'
-    document.querySelector('.add-loaction').innerHTML = `
-    <button class="btn" 
-    onclick="onAddPlace($('[name=place-name]').val(),
-     '${lat}', '${lng}', '${zoom}')">Save</button>
-    `
 }
 
 function onAddPlace(name, lat, lng, zoom) {
+    console.log(name, lat, lng, zoom);
     if (!name) return
     addPlace(name, +lat, +lng, +zoom)
     init()

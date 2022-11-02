@@ -81,4 +81,10 @@ h1{
 
 .location-list{
     background-color: rgb(35, 79, 90);
+    padding: 10px;
+}
+
+.modal{
+    background-color: darkcyan;
+    padding: 10px;
 }

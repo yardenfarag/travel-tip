@@ -1,8 +1,11 @@
+import {mapService} from './service/map-service.js'
 
 window.onInit = onInit
 window.initMap = initMap
+window.onAddPlace = onAddPlace
+window.onPlaceName - onPlaceName
 
-let gCoords
+let gCoords = {lat: 31.028090, lng:35.361351}
 
 function onInit() {
     initMap()
@@ -27,37 +30,38 @@ function initMap() {
         const lat = ev.latLng.lat()
         const lng = ev.latLng.lng()
         const zoom = map.getZoom()
-        onRenderModal()
+        onRenderModal(lat , lng , zoom)
       })
 }
 
 function renderPlaces() {
-    let places = getPlaces()
+    let places = mapService.getPlaces()
   
-    let elTable = document.querySelector('.table')
+    let elTable = document.querySelector('.location-list')
   
     let strHTML = places.map(place => `
-      <div class="place border">
+    <div class="place border">
+    <button class="btn border" onclick="onDelete('${place.id}')">X</button>
       <h3 onclick="onUpdateMapInitParams('${place.lat}', '${place.lng}', '${place.zoom}')">${place.name}</h3>
-      <button class="btn border" onclick="onDelete('${place.id}')">X</button>
+      <p> '${place.lat}' , '${place.lng}' </p>
       </div><br>
-      `).join('')
+      `)
   
-    elTable.innerHTML = strHTML
+    elTable.innerHTML = strHTML.join('')
   
 }
 
 function onRenderModal(lat, lng, zoom) {
+    document.querySelector('.add-location').innerHTML = `
+    <button class="btn" 
+    onclick="onAddPlace('${lat}', '${lng}', '${zoom}')">Save</button>`
     const elModal = document.querySelector('.modal')
     elModal.style.display = 'block'
-    document.querySelector('.add-loaction').innerHTML = `
-    <button class="btn" 
-    onclick="onAddPlace($('[name=place-name]').val(),
-     '${lat}', '${lng}', '${zoom}')">Save</button>
-    `
 }
 
-function onAddPlace(name, lat, lng, zoom) {
+function onAddPlace(lat, lng, zoom) {
+    let name = document.querySelector('[name=place-name]').value
+    console.log(name, lat, lng, zoom);
     if (!name) return
     addPlace(name, +lat, +lng, +zoom)
     init()
@@ -70,8 +74,8 @@ function onPlaceName() {
 
 function loadPlace(place) {
     gCoords = {
-        lat: getCoords.lat,
-        lng: getCoords.lng
+        lat: mapService.getCoords(place).lat,
+        lng: mapService.getCoords(place).lng
     }
     console.log(gCoords)
     initMap()

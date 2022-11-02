@@ -2,6 +2,8 @@
 window.onInit = onInit
 window.initMap = initMap
 
+let gCoords
+
 function onInit() {
     initMap()
     renderPlaces()
@@ -10,13 +12,13 @@ function onInit() {
 let map, infoWindow;
 
 function initMap() {
-    const deadSea = { lat: 31.028090, lng: 35.361351 };
+
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
-        center: deadSea,
+        center: gCoords,
     });
     const marker = new google.maps.Marker({
-        position: deadSea,
+        position: gCoords,
         map: map,
     });
 
@@ -59,4 +61,18 @@ function onAddPlace(name, lat, lng, zoom) {
     if (!name) return
     addPlace(name, +lat, +lng, +zoom)
     init()
+}
+
+function onPlaceName() {
+    const elPlaceName = document.querySelector('[name=place-name]')
+    loadPlace(elPlaceName.value)
+}
+
+function loadPlace(place) {
+    gCoords = {
+        lat: getCoords.lat,
+        lng: getCoords.lng
+    }
+    console.log(gCoords)
+    initMap()
 }

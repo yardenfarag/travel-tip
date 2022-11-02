@@ -8,9 +8,9 @@
     <title>Travel Tip</title>
 </head>
 <body onload="onInit()">
-    <header>
-        <h1>TravelTip</h1>
-    </header>
+
+    <h1>TravelTip</h1>
+
     <section class="search">
         <div class="search-location">
             <input type="search" name="" id="">
@@ -19,17 +19,18 @@
         </div>
 
         <div class="show-location flex">
-            <h4>location: <p>Israel</p></h4>
+            <h3>location: </h3>
+            <p>Israel</p>
             <button class="btn">Copy my location</button>
         </div>
     </section>
 
     <main class="main-content flex">
         <div class="aside flex flex-col flex-basis">
-            <div class="weather flex-basis">Weather</div>
-            <div class="location-list flex-basis">Locatoins</div>
+            <div class="weather flex-basis radius">Weather</div>
+            <div class="location-list flex-basis radius">Locatoins</div>
         </div>
-        <div id="map" class="map flex-basis">
+        <div id="map" class="map flex-basis radius">
             MAP
         </div>
     </main>

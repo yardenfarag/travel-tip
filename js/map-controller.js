@@ -6,6 +6,7 @@ window.onAddPlace = onAddPlace
 window.onDelete = onDelete
 window.onPlaceName = onPlaceName
 window.onCopyLocation = onCopyLocation
+window.updatePlaceOnMap = updatePlaceOnMap
 
 let gCoords = {lat: 31.028090, lng:35.361351}
 let gSelectedLocation = ''
@@ -20,11 +21,10 @@ function onInit() {
 
 let infoWindow
 
-function initMap(lat , lng) {
-    if (!lat) {({lat ,lng} = mapService.getPlaces()[0])}
+function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
-        center: { lat , lng},
+        center: gCoords,
     });
     infoWindow = new google.maps.InfoWindow();
     const locationButton = document.querySelector(".my-location");
@@ -55,7 +55,7 @@ function initMap(lat , lng) {
   });
 
     const marker = new google.maps.Marker({
-        position: { lat , lng},
+        position: gCoords,
         map: map,
     });
 
@@ -74,7 +74,7 @@ function renderPlaces() {
     let elTable = document.querySelector('.location-list')
   
     let strHTML = places.map(place => `
-    <div class="place border radius" onclick="initMap(${place.lat} , ${place.lng})">
+    <div class="place border radius" onclick="updatePlaceOnMap({lat : ${place.lat} ,lng: ${place.lng}})">
     <button class="btn btn-close border" onclick="onDelete('${place.id}')">X</button>
       <h3 onclick="onUpdateMapInitParams('${place.lat}', '${place.lng}', '${place.zoom}')">${place.name}</h3>
       <p class="coord"> '${place.lat}' , '${place.lng}' </p>

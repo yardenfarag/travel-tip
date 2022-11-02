@@ -13,9 +13,9 @@ let gSelectedLocation = ''
 
 function onInit() {
     renderMapByQueryParams()
-    console.log(gCoords);
     initMap()
     renderPlaces()
+    loadWeather()
 }
 
 let infoWindow
@@ -83,6 +83,16 @@ function renderPlaces() {
     elTable.innerHTML = strHTML.join('')
 }
 
+function renderWeather({temp , weather , humidity, name}){
+  let strHTML = `<h2>Today's weather in ${name} </h2>
+                <h3>${temp} C</h3>
+                <h4>${weather}</h4>
+                <p>humidity ${humidity}</p>
+
+  `
+  document.querySelector('.weather').innerHTML = strHTML
+}
+
 function onRenderModal(lat, lng, zoom) {
     document.querySelector('.add-location').innerHTML = `
     <button class="btn" 
@@ -112,19 +122,25 @@ function onDelete(id){
 
 function onPlaceName() {
     const elPlaceName = document.querySelector('[name=search-place]')
+    loadWeather(elPlaceName.value)
     loadPlace(elPlaceName.value)
     updateSelectedLocation(elPlaceName.value)
 }
 
 function updatePlaceOnMap(place) {
-    console.log(place);
     gCoords = {lat: place.lat, lng: place.lng} 
+    loadWeather()
     setURL()
     initMap()
 }
 
+function loadWeather() {
+    const prm = mapService.getCoordsWeather(gCoords)
+    prm.then(renderWeather)
+}
+
 function loadPlace(place) {
-    const prm = getCoords(place)
+    const prm = mapService.getCoords(place)
     prm.then(updatePlaceOnMap)
 }
 
@@ -158,7 +174,7 @@ function renderMapByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
     const coords = {
         lat: +queryParams.get('lat') || 30,
-        lng: +queryParams.get('lng') || 30
+        lng: +queryParams.get('lng') || 30,
     }
     
     gCoords = {lat: coords.lat, lng: coords.lng}

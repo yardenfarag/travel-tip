@@ -76,6 +76,8 @@ h1{
 
 .weather{
     background-color: rgb(216, 214, 214);
+    padding: 10px;
+    text-align: center;
 }
 
 .location-list{

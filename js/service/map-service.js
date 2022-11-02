@@ -1,10 +1,12 @@
 import {utils} from './utils.js'
 
+
 export const mapService = {
     getPlaces,
     addPlace,
     deletePlace,
-    getCoords
+    getCoords,
+    getCoordsWeather,
 }
 
 let gPlaces = [
@@ -17,10 +19,9 @@ let gPlaces = [
     }
 ]
 
-
 const KEY = 'AIzaSyAgIcVfys_vQ4OwhTVIut8RsPboBf17FXA'
-
-window.getCoords = getCoords
+const APIWEATHER = '4fa2ef7f086634632d4a3ea97c853f88'
+// window.getCoords = getCoords??
 
 function getCoords(placeName){
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${placeName}&key=${KEY}`)
@@ -31,6 +32,20 @@ function getCoords(placeName){
         lng: res.lng
     }))
 } 
+
+function getCoordsWeather({lat , lng}){
+    return axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=${APIWEATHER}`)
+    .then(({data})=> {
+        const weather ={
+            temp : Math.round(data.main.temp - 273.15) ,
+            weather : data.weather[0].main,
+            humidity: data.main.humidity,
+            name: data.name
+        }
+        return weather
+    })
+} 
+
 function getPlaces(){
     return gPlaces
 }

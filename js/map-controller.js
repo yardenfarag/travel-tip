@@ -1,5 +1,6 @@
-'use strict'
 
+window.onInit = onInit
+window.initMap = initMap
 
 function onInit() {
     initMap()
@@ -7,21 +8,32 @@ function onInit() {
 
 let map, infoWindow;
 
-// Initialize and add the map
 function initMap() {
-    // The location of Uluru
     const uluru = { lat: -25.344, lng: 131.031 };
-    // The map, centered at Uluru
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
         center: uluru,
     });
-    // The marker, positioned at Uluru
     const marker = new google.maps.Marker({
         position: uluru,
         map: map,
     });
-}
-window.initMap = initMap;
 
- 
+    map.addListener("click", ev => {
+
+        const lat = ev.latLng.lat()
+        const lng = ev.latLng.lng()
+        const zoom = map.getZoom()
+        onRenderModal()
+        $(".add-location").html(`<button type="button" 
+        class="btn btn-primary add-location" data-bs-dismiss="modal"
+        onclick="onAddPlace($('[name=place-name]').val(), '${lat}', '${lng}', '${zoom}')">Save</button>`)
+    
+    
+      })
+}
+
+function onRenderModal(lat, lng, zoom) {
+    const elModal = document.querySelector('.modal')
+    elModal.style.display = 'block'
+}

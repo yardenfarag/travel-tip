@@ -13,7 +13,6 @@ let gSelectedLocation = ''
 
 function onInit() {
     renderMapByQueryParams()
-    console.log(gCoords);
     initMap()
     renderPlaces()
 }

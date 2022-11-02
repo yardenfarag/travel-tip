@@ -5,20 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/x-icon" href="img/icon.png">
     <title>Travel Tip</title>
 </head>
-<body onload="onInit()">
+<body class="main-layout flex flex-col" onload="onInit()">
 
-    <h1>TravelTip</h1>
+    <header class="flex align-center">
+        <div class="logo"><img src="img/logo.png" alt=""></div class="logo">
+    </header>
+
 
     <section class="search">
         <div class="search-location">
-            <input type="search" name="search-place" id="" placeholder="Find a location...">
+            <input type="search" name="search-place" id="" placeholder="🔍Find a location...">
             <button class="btn" onclick="onPlaceName()">GO</button>
             <button class="btn my-location">My Location</button>
         </div>
 
-        <div class="show-location flex">
+        <div class="show-location">
             <h3>location: </h3>
             <p class="selected-location">Israel</p>
             <button class="btn" onclick="onCopyLocation()">Copy my location</button> <span class="copied"></span>

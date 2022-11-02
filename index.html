@@ -37,11 +37,15 @@
 
     <div class="modal" style:"display:none">
         <input type="text" name="place-name" />
-        <button type="button" class="btn btn-primary add-location">Save</button>
+        <div class="add-location">
+
+        </div>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="js/service/storage-service.js" ></script>
+    <script type="module" src="js/service/map-service.js"></script>
     <script type="module" src="js/map-controller.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgIcVfys_vQ4OwhTVIut8RsPboBf17FXA&callback=initMap">

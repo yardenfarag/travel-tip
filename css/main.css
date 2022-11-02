@@ -4,7 +4,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+    background-color: dimgrey;
 }
 
 /* flexes */
@@ -15,4 +15,27 @@ body {
 
 .flex-col {
     flex-direction: column;
+}
+.flex-basis{
+    flex-basis: 50%;
+}
+
+/* helpers */
+
+.btn{
+    border-radius: 5px;
+    padding: 5px;
+    border: 0.5px solid rgba(184, 184, 184, 0.795);
+}
+
+/* header */
+
+/* main */
+
+.main-content{
+
+}
+
+.weather{
+    background-color: rgb(216, 214, 214);
 }

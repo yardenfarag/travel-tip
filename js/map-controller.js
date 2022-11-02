@@ -112,7 +112,7 @@ function onDelete(id){
 }
 
 function onPlaceName() {
-    const elPlaceName = document.querySelector('[name=place-name]')
+    const elPlaceName = document.querySelector('[name=search-place]')
     loadPlace(elPlaceName.value)
     updateSelectedLocation(elPlaceName.value)
 }

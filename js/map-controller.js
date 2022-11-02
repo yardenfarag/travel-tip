@@ -10,9 +10,11 @@ let gCoords = {lat: 31.028090, lng:35.361351}
 let gSelectedLocation = ''
 
 function onInit() {
-    renderMapByQueryParams()
+    // setURL()
+    // renderMapByQueryParams()
     initMap()
     renderPlaces()
+    console.log(gCoords);
 }
 
 let map, infoWindow;
@@ -145,11 +147,11 @@ function setURL() {
 function renderMapByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
     const coords = {
-        lat: queryParams.get('lat') || 30,
-        lng: queryParams.get('lng') || 30
+        lat: queryParams.get('lat') || 31.028090,
+        lng: queryParams.get('lng') || 35.361351
     }
 
-    gCoords = coords
+    gCoords = {lat: coords.lat, lng: coords.lng}
 }
 
 function prepareLinkToCopy() {

@@ -8,15 +8,14 @@ window.onPlaceName = onPlaceName
 window.onCopyLocation = onCopyLocation
 window.updatePlaceOnMap = updatePlaceOnMap
 
-let gCoords = {lat: 31.028090, lng:35.361351}
+let gCoords = {}
 let gSelectedLocation = ''
 
 function onInit() {
-    // setURL()
-    // renderMapByQueryParams()
+    renderMapByQueryParams()
+    console.log(gCoords);
     initMap()
     renderPlaces()
-    console.log(gCoords);
 }
 
 let infoWindow
@@ -24,7 +23,7 @@ let infoWindow
 function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
-        center: gCoords,
+        center: gCoords || {lat: 30, lng: 30},
     });
     infoWindow = new google.maps.InfoWindow();
     const locationButton = document.querySelector(".my-location");
@@ -118,8 +117,7 @@ function onPlaceName() {
 }
 
 function updatePlaceOnMap(place) {
-    gCoords = {lat: place.lat, lng: place.lng}
-    gCoords 
+    gCoords = {lat: place.lat, lng: place.lng} 
     setURL()
     initMap()
 }
@@ -158,11 +156,12 @@ function setURL() {
 function renderMapByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
     const coords = {
-        lat: queryParams.get('lat') || 31.028090,
-        lng: queryParams.get('lng') || 35.361351
+        lat: queryParams.get('lat') || 30,
+        lng: queryParams.get('lng') || 30
     }
-
+    
     gCoords = {lat: coords.lat, lng: coords.lng}
+    console.log(gCoords)
 }
 
 function prepareLinkToCopy() {

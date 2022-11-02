@@ -10,6 +10,7 @@ let gCoords = {lat: 31.028090, lng:35.361351}
 let gSelectedLocation = ''
 
 function onInit() {
+    renderMapByQueryParams()
     initMap()
     renderPlaces()
 }
@@ -106,6 +107,7 @@ function onPlaceName() {
 function updatePlaceOnMap(place) {
     gCoords = {lat: place.lat, lng: place.lng}
     gCoords 
+    setURL()
     initMap()
 }
 
@@ -120,8 +122,12 @@ function updateSelectedLocation(place) {
 }
 
 function onCopyLocation() {
-    const copyText = setURL()
+    const copyText = prepareLinkToCopy()
     navigator.clipboard.writeText(copyText)
+    notifyUserCopied()
+}
+
+function notifyUserCopied() {
     const elCopied = document.querySelector('.copied')
     elCopied.innerText = 'Copied Succesfully ✅'
     setTimeout(() => {
@@ -130,5 +136,22 @@ function onCopyLocation() {
 }
 
 function setURL() {
+    var strQueryParams = `?`
+    strQueryParams += `lat=${gCoords.lat}&lng=${gCoords.lng}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + strQueryParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+function renderMapByQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+    const coords = {
+        lat: queryParams.get('lat') || 30,
+        lng: queryParams.get('lng') || 30
+    }
+
+    gCoords = coords
+}
+
+function prepareLinkToCopy() {
     return `https://yardenfarag.github.io/travel-tip/index.html?lat=${gCoords.lat}&lng=${gCoords.lng}`
 }

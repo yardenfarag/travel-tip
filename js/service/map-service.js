@@ -4,6 +4,7 @@ export const mapService = {
     getPlaces,
     addPlace,
     deletePlace,
+    getCoords
 }
 
 let gPlaces = [
@@ -16,6 +17,20 @@ let gPlaces = [
     }
 ]
 
+
+const KEY = 'AIzaSyAgIcVfys_vQ4OwhTVIut8RsPboBf17FXA'
+
+window.getCoords = getCoords
+
+function getCoords(placeName){
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${placeName}&key=${KEY}`)
+    .then(({data})=> 
+    {return data.results[0].geometry.location})
+    .then(res =>({
+        lat: res.lat,
+        lng: res.lng
+    }))
+} 
 function getPlaces(){
     return gPlaces
 }

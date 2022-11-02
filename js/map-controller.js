@@ -4,6 +4,11 @@ window.onInit = onInit
 window.initMap = initMap
 window.onAddPlace = onAddPlace
 window.onDelete = onDelete
+window.onPlaceName = onPlaceName
+window.onCopyLocation = onCopyLocation
+
+let gCoords = {lat: 31.028090, lng:35.361351}
+let gSelectedLocation = ''
 
 function onInit() {
     initMap()
@@ -18,6 +23,34 @@ function initMap(lat , lng) {
         zoom: 4,
         center: { lat , lng},
     });
+    infoWindow = new google.maps.InfoWindow();
+    const locationButton = document.querySelector(".my-location");
+
+  locationButton.classList.add("custom-map-control-button");
+  locationButton.addEventListener("click", () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("Your Location");
+          infoWindow.open(map);
+          map.setCenter(pos);
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
+
     const marker = new google.maps.Marker({
         position: { lat , lng},
         map: map,
@@ -73,4 +106,40 @@ function onDelete(id){
     mapService.deletePlace(id)
     renderPlaces()
     // onInit()??
+}
+
+function onPlaceName() {
+    const elPlaceName = document.querySelector('[name=place-name]')
+    loadPlace(elPlaceName.value)
+    updateSelectedLocation(elPlaceName.value)
+}
+
+function updatePlaceOnMap(place) {
+    gCoords = {lat: place.lat, lng: place.lng}
+    gCoords 
+    initMap()
+}
+
+function loadPlace(place) {
+    const prm = getCoords(place)
+    prm.then(updatePlaceOnMap)
+}
+
+function updateSelectedLocation(place) {
+    gSelectedLocation = place
+    document.querySelector('.selected-location').innerText = place
+}
+
+function onCopyLocation() {
+    const copyText = setURL()
+    navigator.clipboard.writeText(copyText)
+    const elCopied = document.querySelector('.copied')
+    elCopied.innerText = 'Copied Succesfully ✅'
+    setTimeout(() => {
+        elCopied.innerText = ''
+    }, 1500)
+}
+
+function setURL() {
+    return `https://yardenfarag.github.io/travel-tip/index.html?lat=${gCoords.lat}&lng=${gCoords.lng}`
 }

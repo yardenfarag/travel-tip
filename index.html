@@ -13,15 +13,15 @@
 
     <section class="search">
         <div class="search-location">
-            <input type="search" name="" id="">
-            <button class="btn">GO</button>
-            <button class="btn">My Location</button>
+            <input type="search" name="place-name" id="" placeholder="Find a location...">
+            <button class="btn" onclick="onPlaceName()">GO</button>
+            <button class="btn my-location">My Location</button>
         </div>
 
         <div class="show-location flex">
             <h3>location: </h3>
-            <p>Israel</p>
-            <button class="btn">Copy my location</button>
+            <p class="selected-location">Israel</p>
+            <button class="btn" onclick="onCopyLocation()">Copy my location</button> <span class="copied"></span>
         </div>
     </section>
 

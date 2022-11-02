@@ -53,10 +53,10 @@ h1{
 
 /* search */
 
-.search-location{
-    /* position: relative;
-    float: right; */
-}
+/* .search-location{
+    position: relative;
+    float: right;
+} */
 
 .show-location{
     gap: 20px;
@@ -103,7 +103,6 @@ h1{
 .modal{
     background-color: darkcyan;
     padding: 10px;
-<<<<<<< HEAD
     position: absolute;
     transform: translateX(-130%);
     transition: 0.9s;
@@ -118,10 +117,4 @@ h1{
 
 .add-location{
     margin: 10px;
-=======
-}
-
-p.selected-location {
-    text-transform: capitalize;
->>>>>>> 97c22286a89b45da3e7e7c2407fad8b479dbe33e
 }

@@ -16,7 +16,7 @@ function onInit() {
     renderPlaces()
 }
 
-// let map, infoWindow; ??
+let infoWindow
 
 function initMap(lat , lng) {
     if (!lat) {({lat ,lng} = mapService.getPlaces()[0])}

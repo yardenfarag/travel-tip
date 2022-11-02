@@ -157,13 +157,11 @@ function setURL() {
 function renderMapByQueryParams() {
     const queryParams = new URLSearchParams(window.location.search)
     const coords = {
-        lat: queryParams.get('lat') || 30,
-        lng: queryParams.get('lng') || 30
+        lat: +queryParams.get('lat') || 30,
+        lng: +queryParams.get('lng') || 30
     }
-    console.log(coords);
     
     gCoords = {lat: coords.lat, lng: coords.lng}
-    console.log(gCoords)
 }
 
 function prepareLinkToCopy() {

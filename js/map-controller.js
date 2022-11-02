@@ -4,6 +4,7 @@ window.onInit = onInit
 window.initMap = initMap
 window.onAddPlace = onAddPlace
 window.onPlaceName = onPlaceName
+window.onCopyLocation = onCopyLocation
 
 let gCoords = {lat: 31.028090, lng:35.361351}
 let gSelectedLocation = ''
@@ -116,4 +117,18 @@ function loadPlace(place) {
 function updateSelectedLocation(place) {
     gSelectedLocation = place
     document.querySelector('.selected-location').innerText = place
+}
+
+function onCopyLocation() {
+    const copyText = setURL()
+    navigator.clipboard.writeText(copyText)
+    const elCopied = document.querySelector('.copied')
+    elCopied.innerText = 'Copied Succesfully ✅'
+    setTimeout(() => {
+        elCopied.innerText = ''
+    }, 1500)
+}
+
+function setURL() {
+    return `https://yardenfarag.github.io/travel-tip/index.html?lat=${gCoords.lat}&lng=${gCoords.lng}`
 }

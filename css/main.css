@@ -88,3 +88,7 @@ h1{
     background-color: darkcyan;
     padding: 10px;
 }
+
+p.selected-location {
+    text-transform: capitalize;
+}

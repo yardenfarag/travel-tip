@@ -60,6 +60,7 @@ input {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
     color: var(--clr3);
+    font-weight: 700;
 }
 
 .btn:hover{

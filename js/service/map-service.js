@@ -5,8 +5,8 @@ export const mapService = {
 
 let gPlaces = [
     {
-        lat: 35.62,
-        lng:139.79,
+        lat: 32.06750927884894,
+        lng: 34.82356140098553 ,
         zoom: 8,
         name: 'home,'
     }
@@ -16,6 +16,12 @@ function getPlaces(){
     return gPlaces
 }
 
-function addPlace(){
-
+function addPlace(name, lat, lng, zoom){
+    gPlaces.push({
+        lat,
+        lng,
+        zoom,
+        name
+    })
+    console.log(gPlaces);
 }

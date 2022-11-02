@@ -27,7 +27,7 @@ function initMap() {
         const lat = ev.latLng.lat()
         const lng = ev.latLng.lng()
         const zoom = map.getZoom()
-        onRenderModal()
+        onRenderModal(lat , lng , zoom)
       })
 }
 
@@ -51,16 +51,15 @@ function renderPlaces() {
 function onRenderModal(lat, lng, zoom) {
     document.querySelector('.add-location').innerHTML = `
     <button class="btn" 
-    onclick="onAddPlace(('[name=place-name]').value,
-    '${lat}', '${lng}', '${zoom}')">Save</button>
-    `
+    onclick="onAddPlace('${lat}', '${lng}', '${zoom}')">Save</button>`
     const elModal = document.querySelector('.modal')
     elModal.style.display = 'block'
 }
 
-function onAddPlace(name, lat, lng, zoom) {
+function onAddPlace(lat, lng, zoom) {
+    let name = document.querySelector('[name=place-name]').value
     console.log(name, lat, lng, zoom);
     if (!name) return
-    addPlace(name, +lat, +lng, +zoom)
-    init()
+    mapService.addPlace(name, +lat, +lng, +zoom)
+    onInit()
 }

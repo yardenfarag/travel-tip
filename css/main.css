@@ -1,11 +1,20 @@
+:root {
+    --clr0: #404258;
+    --clr1: #474E68;
+    --clr2: #50577A;
+    --clr3: #6B728E;
+}
+
+
 * {
     box-sizing: border-box;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: dimgrey;
+    background-color: var(--clr0);
     overflow-x: hidden;
+    color: var(--clr3);
 }
 
 /* flexes */
@@ -21,19 +30,42 @@ body {
     flex-basis: 50%;
 }
 
+.align-center {
+    align-items: center;
+}
+
+/* layout */
+.main-layout {
+    max-width: 1400px;
+    margin: auto;
+    padding: 10px;
+}
+
+/* elements */
+
+input {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 7px;
+    border: none;
+    width: 200px;
+    height: 30px;
+}
+
 /* helpers */
 
 .btn{
     border-radius: 5px;
     padding: 5px;
-    border: 0.5px solid rgba(184, 184, 184, 0.795);
+    border: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
+    color: var(--clr3);
+    font-weight: 700;
 }
 
 .btn:hover{
-    background-color: rgb(97, 95, 95);
-    box-shadow: 0px 2px rgba(177, 176, 176, 0.589);
+    background-color: var(--clr2);
+    box-shadow: 0px 2px var(--clr1);
     color: white;
 }
 
@@ -43,26 +75,40 @@ body {
 
 /* header */
 
-.header{
-    max-width: 200px;
-}
-
-h1{
-    position: relative;
+.logo img {
+    display: flex;
+    align-items: center;
+    width: 400px;
 }
 
 /* search */
 
-/* .search-location{
-    position: relative;
-    float: right;
-} */
-
-.show-location{
-    gap: 20px;
-    align-items: center;
+.search {
+    display: flex;
+    align-self: center;
+    gap:10px;
+    align-self: flex-start;
+    gap: 70px;
 }
 
+.search .search-location {
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
+
+.search .show-location {
+    display: flex;
+    align-items: center;
+    gap:20px;
+}
+
+.search .selected-location {
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: wheat;
+}
 /* main */
 
 .main-content{
@@ -78,17 +124,18 @@ h1{
     background-color: rgb(216, 214, 214);
     padding: 10px;
     text-align: center;
+    background-color: var(--clr2);
 }
 
 .location-list{
-    background-color: rgb(35, 79, 90);
+    background-color: var(--clr2);
     padding: 10px;
     overflow-y: scroll;
 }
 
 .place{
     position: relative;
-    background-color: rgb(33, 77, 77);
+    background-color: var(--clr0);
     padding-inline: 15px;
     padding-block: 1px;
     margin-block: 5px;
@@ -103,20 +150,51 @@ h1{
 /* modal */
 
 .modal{
-    background-color: darkcyan;
+    background-color: var(--clr3);
     padding: 10px;
     position: absolute;
-    transform: translateX(-130%);
-    transition: 0.9s;
+    /* transform: translateX(-200%); */
+    left:150%;
+    transition: 0.5s;
     width: 17rem;
     bottom: 50%;
     text-align: center;
+    color: var(--clr0);
 }
 
 .open-modal{
-    transform: translateX(200%);
+    /* transform: translateX(200%); */
+    position: absolute;
+    left: 50%;
+    bottom:50%;
+    transform: translate(-50%, -50%);
 }
 
 .add-location{
     margin: 10px;
+}
+
+/* mobile */
+
+@media (max-width: 800px) {
+    main {
+        flex-direction: column;
+    }
+
+    .map {
+        order:0;
+    }
+
+    .aside {
+        order:1
+    }
+
+    .search {
+        flex-direction: column;
+        gap:5px;
+    }
+
+    .search .search-location {
+        margin-block-start: 20px;;
+    }
 }

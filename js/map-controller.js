@@ -117,6 +117,7 @@ function onPlaceName() {
 }
 
 function updatePlaceOnMap(place) {
+    console.log(place);
     gCoords = {lat: place.lat, lng: place.lng} 
     setURL()
     initMap()
@@ -159,6 +160,7 @@ function renderMapByQueryParams() {
         lat: queryParams.get('lat') || 30,
         lng: queryParams.get('lng') || 30
     }
+    console.log(coords);
     
     gCoords = {lat: coords.lat, lng: coords.lng}
     console.log(gCoords)

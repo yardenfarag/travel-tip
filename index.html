@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Travel Tip</title>
 </head>
-<body>
+<body onload="onInit()">
     <header>
         <h1>TravelTip</h1>
     </header>
@@ -29,11 +29,16 @@
             <div class="weather">Weather</div>
             <div class="table">Locatoins</div>
         </div>
-        <div class="map">
+        <div id="map" class="map">
             MAP
         </div>
     </main>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/map-controller.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgIcVfys_vQ4OwhTVIut8RsPboBf17FXA&callback=initMap">
+    </script>
 </body>
 </html>

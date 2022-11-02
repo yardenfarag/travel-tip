@@ -49,7 +49,6 @@ body {
 
 h1{
     position: relative;
-    /* float: left; */
 }
 
 /* search */
@@ -82,9 +81,40 @@ h1{
 .location-list{
     background-color: rgb(35, 79, 90);
     padding: 10px;
+    overflow-y: scroll;
 }
+
+.place{
+    position: relative;
+    background-color: rgb(33, 77, 77);
+    padding-inline: 15px;
+    padding-block: 1px;
+    margin-block: 5px;
+    cursor: pointer;
+}
+
+.btn-close{
+    position: absolute;
+    right: 0;
+} 
+
+/* modal */
 
 .modal{
     background-color: darkcyan;
     padding: 10px;
+    position: absolute;
+    transform: translateX(-130%);
+    transition: 0.9s;
+    width: 17rem;
+    bottom: 50%;
+    text-align: center;
+}
+
+.open-modal{
+    transform: translateX(200%);
+}
+
+.add-location{
+    margin: 10px;
 }

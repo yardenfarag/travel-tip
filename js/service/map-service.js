@@ -1,15 +1,19 @@
+import {utils} from './utils.js'
+
 export const mapService = {
     getPlaces,
     addPlace,
+    deletePlace,
     getCoords
 }
 
 let gPlaces = [
     {
+        id : utils.getId(),
         lat: 32.06750927884894,
         lng: 34.82356140098553 ,
         zoom: 8,
-        name: 'home,'
+        name: 'home',
     }
 ]
 
@@ -33,10 +37,15 @@ function getPlaces(){
 
 function addPlace(name, lat, lng, zoom){
     gPlaces.push({
+        id : utils.getId(),
         lat,
         lng,
         zoom,
         name
     })
-    console.log(gPlaces);
+}
+
+function deletePlace(id){
+    let idx = gPlaces.findIndex(place => place.id === id)
+    gPlaces.splice(idx ,1)
 }

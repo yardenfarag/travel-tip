@@ -8,7 +8,7 @@ window.onPlaceName = onPlaceName
 window.onCopyLocation = onCopyLocation
 window.updatePlaceOnMap = updatePlaceOnMap
 window.updateSelectedLocation = updateSelectedLocation
-window.closeModal = closeModal
+window.onCloseModal = onCloseModal
 
 let gCoords = {}
 let gSelectedLocation = ''
@@ -76,14 +76,14 @@ function initMap() {
 }
 
 function renderPlaces() {
-    let places = mapService.getPlaces()
+    const places = mapService.getPlaces()
   
-    let elTable = document.querySelector('.location-list')
+    const elTable = document.querySelector('.location-list')
   
     let strHTML = places.map(place => `
     <div class="place border radius" onclick="updatePlaceOnMap({lat : ${place.lat} ,lng: ${place.lng}}); updateSelectedLocation('${place.name}')">
     <button class="btn btn-close border" onclick="onDelete('${place.id}')">X</button>
-      <h3 onclick="onUpdateMapInitParams('${place.lat}', '${place.lng}', '${place.zoom}')">${place.name}</h3>
+      <h3>${place.name}</h3>
       <p class="coord"> '${place.lat}' , '${place.lng}' </p>
       </div>
       `)
@@ -92,7 +92,7 @@ function renderPlaces() {
 }
 
 function renderWeather({temp , weather , humidity, name}){
-  let strHTML = `<h2>Today's weather in ${name} </h2>
+  const strHTML = `<h2>Today's weather in ${name} </h2>
                 <h3>${temp} C</h3>
                 <h4>${weather}</h4>
                 <p>humidity ${humidity}</p>
@@ -105,12 +105,12 @@ function onRenderModal(lat, lng, zoom) {
     document.querySelector('.add-location').innerHTML = `
     <button class="btn" 
     onclick="onAddPlace('${lat}', '${lng}', '${zoom}')">Save</button>
-    <button class="btn" onclick="closeModal()">Close</button>`
+    <button class="btn" onclick="onCloseModal()">Close</button>`
     const elModal = document.querySelector('.modal')
     elModal.classList.add('open-modal')
 }
 
-function closeModal() {
+function onCloseModal() {
     const elModal = document.querySelector('.modal')
     elModal.classList.remove('open-modal')
 }
@@ -119,19 +119,17 @@ function onAddPlace(lat, lng, zoom) {
     const elModal = document.querySelector('.modal')
     elModal.classList.remove('open-modal')
 
-    var name = document.querySelector('[name=place-name]').value
+    const name = document.querySelector('[name=place-name]').value
     if (!name) return
     mapService.addPlace(name, +lat, +lng, +zoom)
     renderPlaces()
-    // onInit()??
     document.querySelector('[name=place-name]').value = ''
 }
 
 function onDelete(id){
-    console.log(id);
     mapService.deletePlace(id)
     renderPlaces()
-    // onInit()??
+
 }
 
 function onPlaceName() {
@@ -179,7 +177,7 @@ function notifyUserCopied() {
 }
 
 function setURL() {
-    var strQueryParams = `?`
+    let strQueryParams = `?`
     strQueryParams += `lat=${gCoords.lat}&lng=${gCoords.lng}`
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + strQueryParams
     window.history.pushState({ path: newUrl }, '', newUrl)

@@ -19,12 +19,12 @@ let gPlaces = [
     }
 ]
 
-const KEY = 'AIzaSyAgIcVfys_vQ4OwhTVIut8RsPboBf17FXA'
-const APIWEATHER = '4fa2ef7f086634632d4a3ea97c853f88'
-// window.getCoords = getCoords??
+const GEOCODE_API_KEY = 'AIzaSyAgIcVfys_vQ4OwhTVIut8RsPboBf17FXA'
+const WEATHER_API_KEY = '4fa2ef7f086634632d4a3ea97c853f88'
+
 
 function getCoords(placeName){
-    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${placeName}&key=${KEY}`)
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${placeName}&key=${GEOCODE_API_KEY}`)
     .then(({data})=> 
     {return data.results[0].geometry.location})
     .then(res =>({
@@ -34,7 +34,7 @@ function getCoords(placeName){
 } 
 
 function getCoordsWeather({lat , lng}){
-    return axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=${APIWEATHER}`)
+    return axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&APPID=${WEATHER_API_KEY}`)
     .then(({data})=> {
         const weather ={
             temp : Math.round(data.main.temp - 273.15) ,

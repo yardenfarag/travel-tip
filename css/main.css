@@ -30,10 +30,14 @@ body {
 
 /* header */
 
+.header{
+    position: f;
+}
+
 /* main */
 
 .main-content{
-
+    height: 50vh;
 }
 
 .weather{
@@ -41,6 +45,5 @@ body {
 }
 
 .location-list{
-    background-color: rgb(216, 214, 214);
-
+    background-color: rgb(35, 79, 90);
 }

@@ -102,6 +102,12 @@ input {
     gap:20px;
 }
 
+.search .selected-location {
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: wheat;
+}
 /* main */
 
 .main-content{

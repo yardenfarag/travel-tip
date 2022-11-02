@@ -7,6 +7,8 @@ window.onDelete = onDelete
 window.onPlaceName = onPlaceName
 window.onCopyLocation = onCopyLocation
 window.updatePlaceOnMap = updatePlaceOnMap
+window.updateSelectedLocation = updateSelectedLocation
+window.closeModal = closeModal
 
 let gCoords = {}
 let gSelectedLocation = ''
@@ -52,9 +54,15 @@ function initMap() {
     }
   });
 
+    const iconURL = 'img/pin.png'
     const marker = new google.maps.Marker({
         position: gCoords,
         map: map,
+        title:'Current Location',
+        icon: {
+            url: iconURL,
+            scaledSize: new google.maps.Size(32, 32)
+        }
     });
 
     map.addListener("click", ev => {
@@ -72,7 +80,7 @@ function renderPlaces() {
     let elTable = document.querySelector('.location-list')
   
     let strHTML = places.map(place => `
-    <div class="place border radius" onclick="updatePlaceOnMap({lat : ${place.lat} ,lng: ${place.lng}})">
+    <div class="place border radius" onclick="updatePlaceOnMap({lat : ${place.lat} ,lng: ${place.lng}}); updateSelectedLocation('${place.name}')">
     <button class="btn btn-close border" onclick="onDelete('${place.id}')">X</button>
       <h3 onclick="onUpdateMapInitParams('${place.lat}', '${place.lng}', '${place.zoom}')">${place.name}</h3>
       <p class="coord"> '${place.lat}' , '${place.lng}' </p>
@@ -85,9 +93,15 @@ function renderPlaces() {
 function onRenderModal(lat, lng, zoom) {
     document.querySelector('.add-location').innerHTML = `
     <button class="btn" 
-    onclick="onAddPlace('${lat}', '${lng}', '${zoom}')">Save</button>`
+    onclick="onAddPlace('${lat}', '${lng}', '${zoom}')">Save</button>
+    <button class="btn" onclick="closeModal()">Close</button>`
     const elModal = document.querySelector('.modal')
     elModal.classList.add('open-modal')
+}
+
+function closeModal() {
+    const elModal = document.querySelector('.modal')
+    elModal.classList.remove('open-modal')
 }
 
 function onAddPlace(lat, lng, zoom) {
@@ -113,10 +127,10 @@ function onPlaceName() {
     const elPlaceName = document.querySelector('[name=search-place]')
     loadPlace(elPlaceName.value)
     updateSelectedLocation(elPlaceName.value)
+    elPlaceName.value = ''
 }
 
 function updatePlaceOnMap(place) {
-    console.log(place);
     gCoords = {lat: place.lat, lng: place.lng} 
     setURL()
     initMap()

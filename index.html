@@ -14,22 +14,22 @@
     <section class="search">
         <div class="search-location">
             <input type="search" name="" id="">
-            <button>GO</button>
-            <button>My Location</button>
+            <button class="btn">GO</button>
+            <button class="btn">My Location</button>
         </div>
 
-        <div class="show-location">
-            <h4>location: Israel</h4>
-            <button>Copy my location</button>
+        <div class="show-location flex">
+            <h4>location: <p>Israel</p></h4>
+            <button class="btn">Copy my location</button>
         </div>
     </section>
 
     <main class="main-content flex">
-        <div class="aside flex flex-col">
-            <div class="weather">Weather</div>
-            <div class="table">Locatoins</div>
+        <div class="aside flex flex-col flex-basis">
+            <div class="weather flex-basis">Weather</div>
+            <div class="location-list flex-basis">Locatoins</div>
         </div>
-        <div id="map" class="map">
+        <div id="map" class="map flex-basis">
             MAP
         </div>
     </main>
